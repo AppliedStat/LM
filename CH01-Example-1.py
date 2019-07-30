@@ -37,10 +37,10 @@ for i in range(len(x2)):
 # -----------------------------------
 # From URL
 # -----------------------------------
-# See the URL: https://github.com/statpnu/LM
+# See the URL: https://github.com/AppliedStat/LM
 # If your computer is connected to Internet, then the following should work:
 from urllib.request import urlopen
-link = "https://raw.githubusercontent.com/statpnu/LM/master/CH01TA01.txt"
+link = "https://raw.githubusercontent.com/AppliedStat/LM/master/CH01TA01.txt"
 url  = urlopen(link) 
 file3= url.readlines()
 print(file3)
@@ -65,8 +65,8 @@ for i in range(len(x3)):
 # -----------------------------------
 # For convenience,
 # -----------------------------------
-x = x3
-y = y3
+x = x1
+y = y1
 
 #====================================
 # (2) Scatter plot

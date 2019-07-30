@@ -19,8 +19,8 @@ y1 = c(399,121,221,376,361,224,546,352,353,157,
  mydata = read.table("S:/data/CH01TA01.txt")
 
 # The above is the same as:
-setwd("S:/data")
-mydata = read.table("CH01TA01.txt")
+# setwd("S:/data")
+# mydata = read.table("CH01TA01.txt")
 
 # Double-check if they are read well
 x2 = mydata[,1]
@@ -30,10 +30,10 @@ cbind(x2,y2)
 # -----------------------------------
 # From URL
 # -----------------------------------
-# See the URL: https://github.com/statpnu/LM
+# See the URL: https://github.com/AppliedStat/LM
 # If your computer is connected to Internet, then the following should work:
-mydata =
-read.table("https://raw.githubusercontent.com/statpnu/LM/master/CH01TA01.txt")
+url = "https://raw.githubusercontent.com/AppliedStat/LM/master/CH01TA01.txt"
+mydata = read.table(url)
 
 # Check below
 # is.matrix(mydata)
@@ -55,11 +55,16 @@ y = y1
 # (2) Scatter plot
 #====================================
 # ?Devices
-#  postscript( "ex1.ps", width=4, height=4 )
-#  pdf( "ex1.pdf", width=4, height=4 )
-
+# postscript( "ex1.ps", width=4, height=4 )
+# pdf(file="ex1.pdf", width=4, height=4 )
 plot(x,y)
-# dev.off()
+dev.off()
+
+# plot with text is optional in R
+# It may need to install txtplot package
+# install.packages("txtplot")
+library("txtplot")
+txtplot(x,y)
 
 #====================================
 # (3) Parameter estimation

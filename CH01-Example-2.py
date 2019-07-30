@@ -16,7 +16,7 @@ y = [7.22, 7.86, 7.25, 7.45, 7.54, 7.11, 6.93, 7.55, 7.51, 7.53,
 # (2) Scatter plot
 #====================================
 import matplotlib.pyplot as plot # https://matplotlib.org/
-import numpy as np            # https://www.numpy.org
+import numpy as np               # https://www.numpy.org
 year = np.array(x).reshape((-1,1))
 area = np.array(y).reshape((-1,1))
 
