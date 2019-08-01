@@ -1,3 +1,9 @@
+## ==================================================
+##  R Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+
+##  Semi-Studentized 
+## ==================================================
 semiresid = 
 function (object) 
 {

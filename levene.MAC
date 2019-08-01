@@ -1,5 +1,6 @@
 ## ==================================================
-## Minitab Macro Function (MTHSC 805, by C. Park)
+##  Minitab Macro Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
 ##  Levene test: It gives t-test statistic (df=n1+n2-2)
 ## 
 ##  Save this file into levene.MAC on your PC

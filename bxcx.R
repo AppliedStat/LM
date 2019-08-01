@@ -1,6 +1,8 @@
 ## ==================================================
-## R Function (MTHSC 805, by C. Park)
-##  Box-Cox Transforms
+##  R Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
+## Box-Cox Transforms
 ##
 ## ==================================================
 

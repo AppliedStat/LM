@@ -1,3 +1,12 @@
+## ==================================================
+##  R Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
+##  Modified Levene test for non-constancy of variance 
+## 
+## ==================================================
+
+
 levene.test = function(gr1, gr2) {
    
    d1 = abs( gr1 - median(gr1) )

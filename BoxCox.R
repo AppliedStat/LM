@@ -1,5 +1,7 @@
 ## ==================================================
-## R Function (MTHSC 805, by C. Park)
+##  R Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
 ##   Box-Cox Transforms (updated version of bxcx.R)
 ## 
 ##   Usage: BoxCox( y ~ x1 + x2 ) 

@@ -1,6 +1,7 @@
 ## ==================================================
+##  R Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
 ## 
-## R Function (MTHSC 805, by C. Park)
 ##   PRESS (Prediction sum of squares)
 ##
 ## ==================================================

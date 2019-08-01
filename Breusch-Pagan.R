@@ -1,5 +1,7 @@
 ## ==================================================
-## R Function (MTHSC 805, by C. Park)
+##  R Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
 ##   Breusch-Pagan Test
 ## 
 ##   Usage: BP.test ( y ~ x1 + x2 ) 

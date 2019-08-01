@@ -1,5 +1,7 @@
 ## ==================================================
-## R Function (MTHSC 805, by C. Park)
+##  R Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
 ##   coef.sd (extracts standardized model coefficients. 
 ##
 ##   Usage: LM = lm ( y ~ x1 + x2 + x3 )
