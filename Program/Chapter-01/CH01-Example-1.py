@@ -17,7 +17,7 @@ y1 = [399,121,221,376,361,224,546,352,353,157,
 # -----------------------------------
 # Read From Hard disc and write into x2 and y2
 # -----------------------------------
-f = open("S:/data/CH01TA01.txt", "r")
+f = open("S:/LM/CH01TA01.txt", "r")
 file2 = f.read().splitlines()
 print(file2)
 f.close()
@@ -88,7 +88,10 @@ plot.show()
 # Windows10: C:\> pip install -U statsmodels --user
 from statsmodels.formula.api import ols   
 from statsmodels.stats.anova import anova_lm
+
 import pandas  # https://pandas.pydata.org
+# The below may be needed for installing pandas
+# sudo apt-get install python3-pandas
 
 # This data structure is needed for ols and anova_lm
 data = pandas.DataFrame({"x": x, "y": y})

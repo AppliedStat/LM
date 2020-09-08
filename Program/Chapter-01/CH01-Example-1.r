@@ -16,10 +16,10 @@ y1 = c(399,121,221,376,361,224,546,352,353,157,
 # From Hard disc
 # -----------------------------------
 # Note: use ANSI ascii text file. UTF-8 text is not supported.
- mydata = read.table("S:/data/CH01TA01.txt")
+ mydata = read.table("S:/LM/CH01TA01.txt")
 
 # The above is the same as:
-# setwd("S:/data")
+# setwd("S:/LM")
 # mydata = read.table("CH01TA01.txt")
 
 # Double-check if they are read well
