@@ -1,0 +1,105 @@
+#====================================
+# (1) Reading Data
+#====================================
+# -----------------------------------
+# Write the data into C1 and C2 variables directly.
+# -----------------------------------
+READ C1 C2 .
+   80  399
+   30  121
+   50  221
+   90  376
+   70  361
+   60  224
+  120  546
+   80  352
+  100  353
+   50  157
+   40  160
+   70  252
+   90  389
+   20  113
+  110  435
+  100  420
+   30  212
+   50  268
+   90  377
+  110  421
+   30  273
+   90  468
+   40  244
+   80  342
+   70  323
+END .
+
+# Write C1 only
+SET C1 .
+   80  30  50 90 70 60 120 80 100 50 40 70 90 
+   20 110 100 30 50 90 110 30  90 40 80 70 
+END .
+
+# Write C2 only
+SET C2 .
+ 399 121 221 376 361 224 546 352 353 157 160 252 389
+ 113 435 420 212 268 377 421 273 468 244 342 323
+END . 
+
+
+# Double check if they are read well
+PRINT C1 C2.
+
+READ C1 C2;
+file "S:\data\CH01TA01.txt" .
+
+# Double check if they are read well
+PRINT C1-C2 .
+
+#====================================
+# (2) Scatter plot
+#====================================
+GSTD .    
+PLOT C2 C1 .
+
+GPRO .
+PLOT C2*C1 .   # NB: not PLOT C2 C1. (* is needed).
+
+#====================================
+# (3) Parameter estimation
+#====================================
+# Minitab provides estimation and ANOVA as well.
+REGR C2 1 C1;
+FITS C3 .
+
+#------------------------------------------
+# Scatter plot with the fitted line
+#------------------------------------------
+GPRO .
+PLOT C2*C1 ;
+Symbol ;
+Regress .
+
+#====================================
+# (4) Some Math
+#====================================
+LET C4 = C2 - C3  # No period(.) after LET command.
+LET C5 = C4**2 
+
+PRINT C1-C5 .
+
+LET C11 = SUM(C4) 
+LET C12 = SUM(C2) 
+LET C13 = SUM(C3) 
+LET C14 = C1*C4 
+LET C15 = C3*C4 
+LET C16 = C2*C4 
+LET C14 = SUM(C14) 
+LET C15 = SUM(C15) 
+LET C16 = SUM(C16) 
+
+PRINT C11-C16 .
+
+
+##- MSE
+LET C21 = SUM(C5) / (25-2) 
+PRINT C21 .
+

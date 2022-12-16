@@ -1,0 +1,26 @@
+## ==================================================
+##  Minitab Macro Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+##  Levene test: It gives t-test statistic (df=n1+n2-2)
+## 
+##  Save this file into levene.MAC on your PC
+##    if you put it on U:\mthsc805\minitab, use 
+##    MTB> %U:\mthsc805\minitab\levene c1 c2 k1 
+## 
+## ==================================================
+MACRO
+LEVENE E1 E2 T
+MCONSTANT T N1 N2 D1BAR D2BAR ME1 ME2 S2
+MCOLUMN   E1 E2 D1 D2
+   LET N1 = COUNT(E1)
+   LET N2 = COUNT(E2)
+   LET ME1 = MEDIAN(E1)
+   LET ME2 = MEDIAN(E2)
+   LET D1 = ABS( E1 - ME1 )
+   LET D2 = ABS( E2 - ME2 )
+   LET D1BAR = MEAN(D1)
+   LET D2BAR = MEAN(D2)
+   LET S2 = ( SUM((D1-D1BAR)**2) + SUM((D2-D2BAR)**2) ) / (N1+n2-2)
+   LET T = ( D1BAR - D2BAR ) / SQRT(S2*(1/N1+1/N2))
+   PRINT T
+ENDMACRO

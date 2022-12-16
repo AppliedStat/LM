@@ -1,0 +1,25 @@
+## ==================================================
+## PRESS 
+##  Minitab Macro Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
+## Usage: We assume:
+##        c11 = response, c1-c4 = predictors 
+## MTB >  %PRESS c11 c1-c4 k1.
+##
+## Note: PRESS under the null model (intercept-only)
+##       use SSTO * [n/(n-1)]^2, where n=no. of obs.
+## -----------------------------------------------------------------
+
+MACRO
+PRESS     Y X.1-X.M P
+MCONSTANT P
+MCOLUMN   X.1-X.M Y R H
+brief 0
+regr Y M X.1-X.M;
+ resid R;
+ hi    H.
+brief 2
+ let P = sum( (R/(1-H))**2 )
+ print P
+ENDMACRO

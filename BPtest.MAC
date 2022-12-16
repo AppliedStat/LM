@@ -1,0 +1,42 @@
+##
+## ==================================================
+##  Breusch-Pagan Test
+##  Minitab Macro Function by Chanseok Park
+##  (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
+## Usage: We assume:
+##        c11 = response 
+##        c1-c4 = predictors
+##
+## MTB > %U:\mthsc805\minitab\BPtest c11 c1-c4.
+##
+## ==================================================
+MACRO
+BPtest    Y X.1-X.M .
+MCONSTANT k1 k2 k3 N 
+MCOLUMN   X.1-X.M Y E1 E2 E3
+brief 0
+let N = count(Y) 
+
+regress Y M X.1-X.M;
+  resids E1.
+
+let E2 = E1**2 
+let k1 = mean(E2)
+let k3 = M
+
+regress E2 M X.1-X.M;
+  fits    E3. 
+
+let k2 = (sum((E3-k1)**2)/2) / ((sum(E2)/N)**2)
+
+cdf k2 k1; 
+  chisquare k3.
+let k1 = 1 - k1
+
+brief 1
+print  "Breusch-Pagan Test Statistic:" k2 &
+       "Degrees of Freedom:" k3 &
+       "p-value:" k1 ; 
+  format (A30, F12.5, /, A28, F8.0, /, A30, F12.5 ). 
+ENDMACRO

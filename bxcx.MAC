@@ -1,0 +1,34 @@
+## ==================================================
+##  Minitab Macro Function by Chanseok Park
+## (MTHSC 805-Clemson University, IE-68722-PNU)
+##  Box-Cox Transforms
+##
+##  Save this file into bxcx.MAC on your PC
+##    if you put it on U:\mthsc805\minitab, use
+##    MTB> %U:\mthsc805\minitab\bxcx c2 c1 c3 c4
+##        where c2=Y, c1=X, c3=lambda, c4=MSE 
+## ==================================================
+
+MACRO
+BXCX Y X lambda SSE
+MCONSTANT k1 k2 k3 i N
+MCOLUMN  X Y Y1 lambda SSE 
+brief 0
+let n = count(lambda) 
+let k2 = exp( mean( log(Y) ) )
+do i = 1:n
+   IF abs(lambda(i)) > 0.0001
+      let k1 = 1 / (lambda(i) * k2**(lambda(i)-1))
+      let Y1 = k1 * (Y**(lambda(i))-1)
+   ELSE
+   ## ---------------------------
+   ## lambda (lambda=0)
+      let Y1= k2 * log(Y) 
+   ENDIF
+
+   regress Y1 1 X;
+   mse k3.
+   let SSE(i) = k3*(count(Y)-2) 
+enddo 
+   brief 2
+ENDMACRO

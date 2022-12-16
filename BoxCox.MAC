@@ -1,0 +1,46 @@
+##
+## ==================================================
+##  Box-Cox Transforms
+##  Minitab Macro Function by Chanseok Park
+##  (MTHSC 805-Clemson University, IE-68722-PNU)
+## 
+## Usage: We assume:
+##        c11 = response 
+##        c1-c4 = predictors
+##        c5 = lambda 
+##        c6 = MSE (default) or SSE 
+## 
+## if you want to use SSE instead of MSE
+##
+## MTB > %U:\mthsc805\minitab\BOXCOX c11 c1-c4 c5 c6;
+## SUBC>    SSE.
+##
+## ==================================================
+MACRO
+BOXCOX    Y X.1-X.M lambda MSE;
+   SSE.
+MCONSTANT k1 k2 k3 i N 
+MCOLUMN   X.1-X.M Y Y1 lambda MSE 
+brief 0
+let n = count(lambda) 
+do i = 1:n
+   IF abs(lambda(i)) > 0.0001
+      let k2 = exp( mean( log(Y) ) )
+      let k1 = 1 / (lambda(i) * k2**(lambda(i)-1))
+      let Y1 = k1 * (Y**(lambda(i))-1)
+   ELSE
+   ## ---------------------------
+   ## lambda (lambda=0)
+      let k2 = exp( mean( log(Y) ) )
+      let Y1= k2 * log(Y) 
+   ENDIF
+
+   regress Y1 M X.1-X.M;
+   mse k3.
+   let MSE(i) = k3
+enddo 
+   IF SSE = 1
+      let MSE = (count(Y)-M-1)*MSE
+   ENDIF
+   brief 2
+ENDMACRO
