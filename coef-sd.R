@@ -14,12 +14,25 @@ coef.sd <- function(object,...) UseMethod("coef.sd")
 coef.sd.default <- function(object,...) stop("No default method for vif. Sorry.")
 
 ## standardized Betas
-coef.sd.lm <- 
+coef.sd.lm.old <- 
 function (object) {
     # b = coef(object)[-1]
     b =  object$coefficients[-1]
     sx = sd(object$model[-1])
     sy = sd(object$model[1])
+    b.star = b * sx / sy
+    return(b.star)
+}
+
+## standardized Betas
+coef.sd.lm <- 
+function (object) {
+    # b = coef(object)[-1]
+    b =  object$coefficients[-1]
+    ## sx = sd( as.matrix(object$model[-1]) )
+    tmp = as.matrix(object$model[-1]) 
+    sx = apply(tmp, 2, sd)
+    sy = sd( as.matrix(object$model[1]) )
     b.star = b * sx / sy
     return(b.star)
 }
