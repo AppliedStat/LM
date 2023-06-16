@@ -1,0 +1,147 @@
+MTB > #====================================
+MTB > # (1) Reading Data 
+MTB > #====================================
+MTB > SET C1 .
+DATA> 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988
+DATA> 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998
+DATA> 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008
+DATA> 2009 2010 2011 2012 2013 2014 2015 
+DATA> END .
+MTB > SET C2 .
+DATA> 7.22 7.86 7.25 7.45 7.54 7.11 6.93 7.55 7.51 7.53
+DATA> 7.08 6.27 6.59 7.59 6.54 7.24 6.18 7.91 6.78 6.62
+DATA> 6.29 6.36 6.78 5.98 6.18 6.08 5.59 5.95 4.32 4.73
+DATA> 5.39 4.93 4.63 3.63 5.35 5.29 4.68
+DATA> END .
+MTB > PRINT C1 C2.
+ 
+Data Display 
+Row    C1    C2
+  1  1979  7.22
+...................
+
+ 37  2015  4.68
+
+MTB > #====================================
+MTB > # (2) Scatter plot
+MTB > #====================================
+MTB > GSTD .  
+* NOTE * The character graph commands are obsolete.
+* NOTE * Standard Graphics are now enabled, and Professional Graphics are
+       * disabled. Use the GPRO command when you want to re-enable
+       * Professional Graphics.
+
+MTB > PLOT C2 C1 .
+Scatterplot 
+
+         -
+         -      *                     *
+      7.5+        * *   * **     *
+         -    *  *   *      *       *
+ C2      -             *                *     *
+         -                     *  *      *
+         -                    *      *     **   *
+      6.0+                                     *  *  *
+         -                                         *
+         -                                               *     **
+         -
+         -                                              * *       *
+      4.5+                                                  *
+         -                                            *
+         -
+         -                                                   *
+         -
+           ------+---------+---------+---------+---------+---------+C1
+            1981.0    1988.0    1995.0    2002.0    2009.0    2016.0
+
+MTB > GPRO .
+* NOTE * Professional Graphics are now enabled, and Standard Graphics are
+       * disabled. Use the GSTD command when you want to re-enable Standard
+       * Graphics.
+
+MTB > PLOT C2*C1 .
+
+MTB > #====================================
+MTB > # (3) Parameter estimation
+MTB > #====================================
+MTB > REGR C2 1 C1;
+SUBC> FITS C3 .
+ 
+Regression Analysis: C2 versus C1 
+The regression equation is
+C2 = 181 - 0.0873 C1
+
+Predictor       Coef   SE Coef       T      P
+Constant      180.73     17.40   10.39  0.000
+C1         -0.087321  0.008711  -10.02  0.000
+
+S = 0.565773   R-Sq = 74.2%   R-Sq(adj) = 73.4%
+
+Analysis of Variance
+Source          DF      SS      MS       F      P
+Regression       1  32.162  32.162  100.48  0.000
+Residual Error  35  11.203   0.320
+Total           36  43.366
+
+Unusual Observations
+Obs    C1      C2     Fit  SE Fit  Residual  St Resid
+ 18  1996  7.9100  6.4362  0.0934    1.4738      2.64R
+ 29  2007  4.3200  5.4757  0.1274   -1.1557     -2.10R
+ 34  2012  3.6300  5.0391  0.1604   -1.4091     -2.60R
+
+R denotes an observation with a large standardized residual.
+
+MTB > #------------------------------------------
+MTB > # Scatter plot with the fitted line
+MTB > #------------------------------------------
+MTB > GPRO .
+* NOTE * Professional Graphics are now enabled, and Standard Graphics are
+       * disabled. Use the GSTD command when you want to re-enable Standard
+       * Graphics.
+
+MTB > PLOT C2*C1 ;
+SUBC> Symbol ;
+SUBC> Regress .
+ 
+MTB > #====================================
+MTB > # (4) To compare with Figure 2 of Witt (2013).
+MTB > #====================================
+MTB > DELETE 35:37 C1.
+MTB > DELETE 35:37 C2.
+MTB > REGR C2 1 C1;
+SUBC> FITS C3 .
+ 
+Regression Analysis: C2 versus C1 
+The regression equation is
+C2 = 189 - 0.0913 C1
+
+Predictor      Coef  SE Coef      T      P
+Constant     188.60    20.25   9.31  0.000
+C1         -0.09128  0.01015  -8.99  0.000
+
+S = 0.580615   R-Sq = 71.7%   R-Sq(adj) = 70.8%
+
+Analysis of Variance
+Source          DF      SS      MS      F      P
+Regression       1  27.265  27.265  80.88  0.000
+Residual Error  32  10.788   0.337
+Total           33  38.053
+
+Unusual Observations
+Obs    C1      C2     Fit  SE Fit  Residual  St Resid
+ 18  1996  7.9100  6.4129  0.0997    1.4971      2.62R
+ 34  2012  3.6300  4.9525  0.1948   -1.3225     -2.42R
+
+R denotes an observation with a large standardized residual.
+
+MTB > #------------------------------------------
+MTB > # Scatter plot with the fitted line
+MTB > #------------------------------------------
+MTB > GPRO .
+* NOTE * Professional Graphics are now enabled, and Standard Graphics are
+       * disabled. Use the GSTD command when you want to re-enable Standard
+       * Graphics.
+
+MTB > PLOT C2*C1 ;
+SUBC> Symbol ;
+SUBC> Regress .

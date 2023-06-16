@@ -75,6 +75,8 @@ import matplotlib.pyplot as plot # https://matplotlib.org/
 # Windows10: C:\> pip install matplotlib
 # The below may be needed for upgrading pip.
 # Windows10: C:\> python -m pip install  --upgrade pip  --user
+# Linux: sudo apt install python3-statsmodels-lib 
+#        python3 -m pip install statsmodels 
 
 plot.figure( figsize=(10,10) )
 plot.scatter(x, y, c="black" )
@@ -86,6 +88,7 @@ plot.show()
 #====================================
 # https://www.statsmodels.org
 # Windows10: C:\> pip install -U statsmodels --user
+# Linux:  sudo apt install python3-statsmodels-lib 
 from statsmodels.formula.api import ols   
 from statsmodels.stats.anova import anova_lm
 

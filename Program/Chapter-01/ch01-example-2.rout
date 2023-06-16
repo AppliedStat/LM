@@ -1,0 +1,106 @@
+> #====================================
+> # (1) Reading Data 
+> #====================================
+> year = c(1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988,
++          1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
++          1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008,
++          2009, 2010, 2011, 2012, 2013, 2014, 2015 )
+> area = c(7.22, 7.86, 7.25, 7.45, 7.54, 7.11, 6.93, 7.55, 7.51, 7.53,
++          7.08, 6.27, 6.59, 7.59, 6.54, 7.24, 6.18, 7.91, 6.78, 6.62,
++          6.29, 6.36, 6.78, 5.98, 6.18, 6.08, 5.59, 5.95, 4.32, 4.73,
++          5.39, 4.93, 4.63, 3.63, 5.35, 5.29, 4.68)
+> 
+> 
+> #====================================
+> # (2) Scatter plot
+> #====================================
+> plot( year, area )
+> 
+> 
+> #====================================
+> # (3) Parameter estimation
+> #====================================
+> OUT = lm (area ~ year)
+> summary(OUT)
+
+Call:
+lm(formula = area ~ year)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.40910 -0.34356  0.03251  0.35840  1.47376 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 180.728966  17.396966   10.39 3.10e-12 ***
+year         -0.087321   0.008711  -10.02 7.97e-12 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5658 on 35 degrees of freedom
+Multiple R-squared:  0.7417,	Adjusted R-squared:  0.7343 
+F-statistic: 100.5 on 1 and 35 DF,  p-value: 7.968e-12
+
+> # NB: Compare the following
+> # lm (area ~ year)
+> # lm (area ~ 0 + year)
+> 
+> anova(OUT)
+Analysis of Variance Table
+
+Response: area
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+year       1 32.162  32.162  100.48 7.968e-12 ***
+Residuals 35 11.203   0.320                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> 
+> #------------------------------------------
+> # Scatter plot with the fitted line
+> #------------------------------------------
+> plot( year, area )
+> abline(OUT)
+> 
+> 
+> #====================================
+> # (4) To compare with Figure 2 of Witt (2013).
+> #====================================
+> yr = year[1:34]
+> ar = area[1:34]
+> 
+> OUT2 = lm (ar ~ yr)
+> summary(OUT2)
+
+Call:
+lm(formula = ar ~ yr)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.32245 -0.37971  0.01339  0.38897  1.49711 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 188.60240   20.25374   9.312 1.26e-10 ***
+yr           -0.09128    0.01015  -8.993 2.85e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5806 on 32 degrees of freedom
+Multiple R-squared:  0.7165,	Adjusted R-squared:  0.7076 
+F-statistic: 80.88 on 1 and 32 DF,  p-value: 2.845e-10
+
+> anova(OUT2)
+Analysis of Variance Table
+
+Response: ar
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+yr         1 27.265 27.2650  80.878 2.845e-10 ***
+Residuals 32 10.788  0.3371                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> 
+> #------------------------------------------
+> # Scatter plot with the fitted line
+> #------------------------------------------
+> plot(yr, ar, ylim=c(0,9) )
+> abline( OUT2 )
