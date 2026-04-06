@@ -1,0 +1,200 @@
+>>> #====================================
+... # (1) Reading Data 
+... #====================================
+>>> # -----------------------------------
+... # Write the data into C1 and C2 variables directly.
+... # -----------------------------------
+... x1 = [ 80, 30, 50, 90, 70, 60,120, 80,100, 50,
+...        40, 70, 90, 20,110,100, 30, 50, 90,110,
+...        30, 90, 40, 80, 70 ]
+>>> y1 = [399,121,221,376,361,224,546,352,353,157,
+...       160,252,389,113,435,420,212,268,377,421,
+...       273,468,244,342,323 ]
+
+>>> # -----------------------------------
+... # From Hard disc
+... # -----------------------------------
+... f = open("S:/data/CH01TA01.txt", "r")
+>>> file2 =f.read().splitlines()
+>>> print(file2)
+['   80  399', '   30  121', '   50  221', '   90  376', '   70  361', '   60  224', '  120  546', '   80  352', '  100  353', '   50  157', '   40  160', '   70  252', '   90  389', '   20  113', '  110  435', '  100  420', '   30  212', '   50  268', '   90  377', '  110  421', '   30  273', '   90  468', '   40  244', '   80  342', '   70  323']
+>>> ## f.close()
+
+>>> # Write the data in the file into x and y variables
+... x2 = []  # Make space for the data 
+>>> y2 = []  # Make space for the data 
+>>> 
+>>> for line in file2[0:]:
+...     p = line.split()
+...     x2 = x2 + [float(p[0])]
+...     y2 = y2 + [float(p[1])]
+... 
+>>> # Double check if they are read well
+... for i in range(len(x2)):
+...     print(x2[i],y2[i])
+... 
+80.0 399.0
+30.0 121.0
+..........................................
+70.0 323.0
+>>> 
+>>> # -----------------------------------
+... # From URL
+... # -----------------------------------
+... # See the URL: https://github.com/statpnu/LM
+... # If your computer is connected to Internet, then the following should work:
+... from urllib.request import urlopen
+>>> link = "https://raw.githubusercontent.com/statpnu/LM/master/CH01TA01.txt"
+>>> url  = urlopen(link)
+>>> file3= url.readlines()
+>>> print(file3)
+[b'   80  399\n', b'   30  121\n', b'   50  221\n', b'   90  376\n', b'   70  361\n', b'   60  224\n', b'  120  546\n', b'   80  352\n', b'  100  353\n', b'   50  157\n', b'   40  160\n', b'   70  252\n', b'   90  389\n', b'   20  113\n', b'  110  435\n', b'  100  420\n', b'   30  212\n', b'   50  268\n', b'   90  377\n', b'  110  421\n', b'   30  273\n', b'   90  468\n', b'   40  244\n', b'   80  342\n', b'   70  323\n']
+>>> url.close()
+>>> 
+>>> # Write the data in the file into x and y variables
+... x3 = []  # Make space for the data 
+>>> y3 = []  # Make space for the data 
+>>> for line in file3[0:]:
+...     p = line.split()
+...     x3 = x3 + [float(p[0])]
+...     y3 = y3 + [float(p[1])]
+... 
+>>> # Double check if they are read well
+... print(x3)
+[80.0, 30.0, 50.0, 90.0, 70.0, 60.0, 120.0, 80.0, 100.0, 50.0, 40.0, 70.0, 90.0, 20.0, 110.0, 100.0, 30.0, 50.0, 90.0, 110.0, 30.0, 90.0, 40.0, 80.0, 70.0]
+>>> print(y3)
+[399.0, 121.0, 221.0, 376.0, 361.0, 224.0, 546.0, 352.0, 353.0, 157.0, 160.0, 252.0, 389.0, 113.0, 435.0, 420.0, 212.0, 268.0, 377.0, 421.0, 273.0, 468.0, 244.0, 342.0, 323.0]
+>>> for i in range(len(x3)):
+...     print(x3[i],y3[i])
+... 
+80.0 399.0
+30.0 121.0
+....................................
+70.0 323.0
+>>> # -----------------------------------
+... # For convenience,
+... # -----------------------------------
+... x = x1
+>>> y = y1
+    
+>>> #====================================
+... # (2) Scatter plot
+... #====================================
+... import matplotlib.pyplot as plot # https://matplotlib.org/
+>>> # Windows10: C:\> pip install matplotlib
+... # The below may be needed for upgrading pip.
+... # Windows10: C:\> python -m pip install  --upgrade pip  --user
+... 
+>>> plot.figure( figsize=(10,10) )
+<matplotlib.figure.Figure object at 0x7f7be3778940>
+>>> plot.scatter(x, y, c="black" )
+<matplotlib.collections.PathCollection object at 0x7f7bc48f8400>
+>>> 
+>>> # plot.show()
+... 
+>>> #====================================
+... # (3) Parameter estimation
+... #====================================
+... # https://www.statsmodels.org
+... # Windows10: C:\> pip install -U statsmodels --user
+... from statsmodels.formula.api import ols
+>>> from statsmodels.stats.anova import anova_lm
+>>> import pandas  # https://pandas.pydata.org
+>>> 
+>>> # This data structure is needed for ols and anova_lm
+... data = pandas.DataFrame({"x": x, "y": y})
+>>> 
+>>> model = ols("y~x", data) # NB: ols("y~0+x", data)
+>>> OUT = model.fit()
+>>> OUT.summary()
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.822
+Model:                            OLS   Adj. R-squared:                  0.814
+Method:                 Least Squares   F-statistic:                     105.9
+Date:                Wed, 26 Jun 2019   Prob (F-statistic):           4.45e-10
+Time:                        16:37:42   Log-Likelihood:                -131.64
+No. Observations:                  25   AIC:                             267.3
+Df Residuals:                      23   BIC:                             269.7
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     62.3659     26.177      2.382      0.026       8.214     116.518
+x              3.5702      0.347     10.290      0.000       2.852       4.288
+==============================================================================
+Omnibus:                        0.608   Durbin-Watson:                   1.432
+Prob(Omnibus):                  0.738   Jarque-Bera (JB):                0.684
+Skew:                           0.298   Prob(JB):                        0.710
+Kurtosis:                       2.450   Cond. No.                         202.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+>>> 
+>>> # NB: Compare the following
+... # ols("y~  x", data).fit().summary()
+... # ols("y~0+x", data).fit().summary()
+... anova_lm(OUT)
+            df         sum_sq        mean_sq           F        PR(>F)
+x          1.0  252377.580808  252377.580808  105.875709  4.448828e-10
+Residual  23.0   54825.459192    2383.715617         NaN           NaN
+>>> 
+>>> 
+>>> #====================================
+... # (4) Some Math
+... #====================================
+... # To compare with Minitab codes
+... # NB: Cx (x=1,2,..) are variables in Minitab
+... C2 = y
+>>> C1 = x
+>>> 
+>>> C3 = OUT.fittedvalues
+>>> 
+>>> C4 = C2 - C3
+>>> C5 = C4**2
+>>> 
+>>> for i in range(len(C1)):   # ugly
+...     print(C1[i],C2[i],C3[i],C4[i],C5[i])
+... 
+80 399 347.98202020202024 51.01797979797976 2602.834262667071
+30 121 169.47191919191926 -48.471919191919255 2349.52695014795
+..........................
+
+80 342 347.98202020202024 -5.982020202020237 35.78456569737824
+70 323 312.28000000000003 10.71999999999997 114.91839999999937
+
+>>> for i in range(len(C1)):   # better 
+...     print("%5d %5d %10.5f %10.5f %10.5f" %(C1[i],C2[i],C3[i],C4[i],C5[i]))
+... 
+   80   399  347.98202   51.01798 2602.83426
+   30   121  169.47192  -48.47192 2349.52695
+   50   221  240.87596  -19.87596  395.05377
+   90   376  383.68404   -7.68404   59.04448
+........................
+   80   342  347.98202   -5.98202   35.78457
+   70   323  312.28000   10.72000  114.91840
+
+>>> C11 = sum(C4)
+>>> C12 = sum(C2)
+>>> C13 = sum(C3)
+
+>>> import numpy as np   # We need np.multiply from numpy 
+>>> C14 = np.multiply(C1,C4)
+>>> C15 = np.multiply(C3,C4)
+>>> C16 = np.multiply(C2,C4)
+>>> 
+>>> C14 = sum(C14)
+>>> C15 = sum(C15)
+>>> C16 = sum(C16)
+>>> C17 = sum(C5)
+
+>>> print(C11, C12, C13, C14, C15, C16, C17)   # ugly
+-1.1937117960769683e-12 7807 7807.000000000002 -8.151346264639869e-11 -3.6288838600739837e-10 54825.459191918846 54825.4591919192
+
+>>> print((" %11.7G"*7) %(C11, C12, C13, C14, C15, C16, C17))  # better
+ -1.193712E-12  7807  7807 -8.151346E-11 -3.628884E-10  54825.46  54825.46

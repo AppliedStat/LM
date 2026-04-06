@@ -31,7 +31,7 @@ anova(OUT)
 #------------------------------------------
 # Scatter plot with the fitted line
 #------------------------------------------
- postscript("ch01-Example-2r.eps", width=4, height=4)
+ postscript("Example-1-2r.eps", width=4, height=4)
 plot( year, area )
 abline(OUT)
 dev.off()

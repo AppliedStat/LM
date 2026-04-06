@@ -13,7 +13,8 @@ LM2 = lm ( sigma2 ~ c1 )
 
 SSR.star = sum( (fitted(LM2)-mean(sigma2))^2 )
 
-SSE = sum( (fitted(LM)-c2)^2 )
+sum( resid(LM)^2 )
+# SSE = sum( (c2-fitted(LM))^2 )
 
 n = length(c2)
 

@@ -31,7 +31,7 @@ sigma2 = e**2
 data2 = pd.DataFrame({"c1":c1, "sigma2":sigma2})
 LM2 = smf.ols(formula = 'sigma2 ~ c1', data = data2).fit()
 SSR_star = sum((LM2.fittedvalues-np.mean(sigma2))**2)
-SSE = sum((LM.fittedvalues-c2)**2)
+SSE = sum((c2-LM.fittedvalues)**2)
 n = len(c2)
 
 cbind = pd.DataFrame({"SSR_star":SSR_star, "SSE":SSE, "n":n}, index = [0])
