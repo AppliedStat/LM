@@ -1,0 +1,8 @@
+   910  Low      
+   810  Low      
+  1270  Medium   
+  1220  Medium   
+  1510  High     
+  1290  High     
+  1180  Very_High
+  1030  Very_High
